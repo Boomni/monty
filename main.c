@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 	while (getline(&line, &n, fp) != -1)
 	{
 		line_number++;
-		opcode = strtok(line, " \n\t");
+		opcode = strtok(line, " \t\n");
 		if (opcode == NULL || opcode[0] == '#')
 		{
 			continue;
