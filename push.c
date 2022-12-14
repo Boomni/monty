@@ -1,5 +1,13 @@
 #include "monty.h"
 
+/**
+ * push -  pushes an element to the stack.
+ *
+ * @stack: stack
+ * @line_number: line number
+ *
+ * Return: void
+ */
 void push(stack_t **stack, unsigned int line_number)
 {
 	char *token = strtok(NULL, " \n\t");

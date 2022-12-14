@@ -1,10 +1,10 @@
 #include "monty.h"
 
 /**
- * pall - opcode pall prints all the values on the stack, starting from the top of the stack.
+ * pall - opcode pall prints all the values starting from the top of the stack.
  *
  * @stack: stack given
- * @:line_number: line number
+ * @line_number: line number in test file
  *
  * Return: void
  */
