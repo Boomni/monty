@@ -1,75 +1,84 @@
 #include "monty.h"
 
+/**
+ * main - entry point
+ *
+ * @argv: command line argument
+ * @argc: argument count
+ *
+ * Return: 0
+ */
 int main(int argc, char *argv[])
 {
-    if (argc != 2)
-    {
-        fprintf(stderr, "USAGE: monty file\n");
-        exit(EXIT_FAILURE);
-    }
+	FILE *fp = fopen(argv[1], "r");
+	stack_t *stack = NULL;
+	char *line = NULL;
+	size_t n = 0;
+	unsigned int line_number = 0;
+	instruction_t instructions[] = {
+		{"push", &push},
+		{"pall", &pall},
+		{NULL, NULL}
+	};
+	char *opcode;
+	int i = 0;
 
-    FILE *fp = fopen(argv[1], "r");
-    if (fp == NULL)
-    {
-        fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-        exit(EXIT_FAILURE);
-    }
 
-    instruction_t instructions[] = {
-        {"push", &push},
-        {"pall", &pall},
-        {NULL, NULL}
-    };
+	if (argc != 2)
+	{
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
+	}
+	if (fp == NULL)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		exit(EXIT_FAILURE);
+	}
 
-    stack_t *stack = NULL;
-    char *line = NULL;
-    size_t n = 0;
-    unsigned int line_number = 0;
 
-    while (getline(&line, &n, fp) != -1)
-    {
-        line_number++;
+	while (getline(&line, &n, fp) != -1)
+	{
+		line_number++;
 
-        char *opcode = strtok(line, " \n\t");
-        if (opcode == NULL || opcode[0] == '#')
-        {
-            continue;
-        }
+		opcode = strtok(line, " \n\t");
+		if (opcode == NULL || opcode[0] == '#')
+		{
+			continue;
+		}
 
-        int i = 0;
-        while (instructions[i].opcode != NULL)
-        {
-            if (strcmp(instructions[i].opcode, opcode) == 0)
-            {
-                instructions[i].f(&stack, line_number);
-                break;
-            }
-            i++;
-        }
+		while (instructions[i].opcode != NULL)
+		{
+			if (strcmp(instructions[i].opcode, opcode) == 0)
+			{
+				instructions[i].f(&stack, line_number);
+				break;
+			}
+			i++;
+		}
 
-        if (instructions[i].opcode == NULL)
-        {
-            fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
-            exit(EXIT_FAILURE);
-        }
-    }
+		if (instructions[i].opcode == NULL)
+		{
+			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
+			exit(EXIT_FAILURE);
+		}
+	}
 
-    free(line);
-    free_stack(stack);
+free(line);
+free_stack(stack);
 
-    fclose(fp);
+fclose(fp);
 
-    return 0;
+return 0;
 }
 void free_stack(stack_t *stack)
 {
-    stack_t *tmp;
+	stack_t *tmp;
 
-    while (stack != NULL)
-    {
-        tmp = stack;
-        stack = stack->next;
-        free(tmp);
-    }
+	while (stack != NULL)
+	{
+		tmp = stack;
+		stack = stack->next;
+		free(tmp);
+	}
 }
 
