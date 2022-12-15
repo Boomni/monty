@@ -97,6 +97,7 @@ void parser(FILE *fp, instruction_t arg[], stack_t **stack, int line_number)
 			exit(EXIT_FAILURE);
 		}
 		line_number++;
+		free(original_line);
 	}
 	free(line);
 	free_stack(*stack);
