@@ -102,7 +102,7 @@ void parser(FILE *fp, instruction_t arg[], stack_t **stack, int line_number)
 		}
 		if (arg[i].opcode == NULL)
 		{
-			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
+			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
 			free_stack(*stack);
 			fclose(fp);
 			exit(EXIT_FAILURE);
