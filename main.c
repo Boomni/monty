@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	parser(fp, instructions, stack);
+	parser(fp, instructions, &stack);
 	
 	return (0);
 }
@@ -62,7 +62,7 @@ void free_stack(stack_t *stack)
  *
  * Return: void
  */
-void parser(FILE *fp, instruction_t instructions[], stack_t *stack)
+void parser(FILE *fp, instruction_t instructions[], stack_t **stack)
 {
 	char *line = NULL;
 	size_t n = 0;
@@ -82,7 +82,7 @@ void parser(FILE *fp, instruction_t instructions[], stack_t *stack)
 		{
 			if (strcasecmp(instructions[i].opcode, opcode) == 0)
 			{
-				instructions[i].f(&stack, line_number);
+				instructions[i].f(stack, line_number);
 				break;
 			}
 			i++;
@@ -94,6 +94,6 @@ void parser(FILE *fp, instruction_t instructions[], stack_t *stack)
 		}
 	}
 	free(line);
-	free_stack(stack);
+	free_stack(*stack);
 	fclose(fp);
 }
