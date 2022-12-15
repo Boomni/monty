@@ -61,13 +61,13 @@ void free_stack(stack_t *stack)
  * parser - reads the command line file passed
  *
  * @fp: file passed
- * @instructions: opcode passed
+ * @arg: opcode passed
  * @stack: stack
  * @line_number: line number in the file
  *
  * Return: void
  */
-void parser(FILE *fp, instruction_t instructions[], stack_t **stack, int line_number)
+void parser(FILE *fp, instruction_t arg[], stack_t **stack, int line_number)
 {
 	char *line = NULL;
 	size_t n = 0;
@@ -85,16 +85,16 @@ void parser(FILE *fp, instruction_t instructions[], stack_t **stack, int line_nu
 			continue;
 		}
 		i = 0;
-		while (instructions[i].opcode != NULL)
+		while (arg[i].opcode != NULL)
 		{
-			if (strcasecmp(instructions[i].opcode, opcode) == 0)
+			if (strcasecmp(arg[i].opcode, opcode) == 0)
 			{
-				instructions[i].f(stack, line_number);
+				arg[i].f(stack, line_number);
 				break;
 			}
 			i++;
 		}
-		if (instructions[i].opcode == NULL)
+		if (arg[i].opcode == NULL)
 		{
 			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
 			free_stack(*stack);

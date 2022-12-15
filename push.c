@@ -13,7 +13,7 @@ void push(stack_t **stack, unsigned int line_number)
 	stack_t *new_node;
 	int value;
 	char *str;
-	
+
 	str = strtok(NULL, " \n\t");
 	if (stack == NULL)
 	{
