@@ -17,7 +17,7 @@ void push(stack_t **stack, unsigned int line_number)
 	str = strtok(NULL, " \n\t");
 	if (stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't push, stack is NULL\n", line_number);
+		fprintf(stderr, "L%d: usage push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	value = atoi(str);
@@ -37,4 +37,3 @@ void push(stack_t **stack, unsigned int line_number)
 	}
 	*stack = new_node;
 }
-
