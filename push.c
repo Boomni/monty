@@ -12,14 +12,15 @@ void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node;
 	int value;
-
+	char *str;
+	
+	str = strtok(NULL, " \n\t");
 	if (stack == NULL)
 	{
 		fprintf(stderr, "L%d: can't push, stack is NULL\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-
-	value = strtol(strtok(NULL, " \t\n"), NULL, 10);
+	value = atoi(str);
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
 	{
@@ -36,3 +37,4 @@ void push(stack_t **stack, unsigned int line_number)
 	}
 	*stack = new_node;
 }
+
