@@ -15,7 +15,7 @@ void push(stack_t **stack, unsigned int line_number)
 	char *str;
 
 	str = strtok(NULL, " \n\t");
-	if (str == NULL || !isdigit(str))
+	if (stack == NULL)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
@@ -37,23 +37,3 @@ void push(stack_t **stack, unsigned int line_number)
 	}
 	*stack = new_node;
 }
-/**
- * is_integer - checks whether a given string represents a valid integer or not
- *
- * @str: string to check
- *
- * Return: 1 if the string represents a valid integer, 0 otherwise
- */
-int is_integer(char *str)
-{
-	while (*str)
-	{
-		if (!isdigit(*str))
-		{
-			return 0;
-		}
-		str++;
-	}
-	return 1;
-}
-
