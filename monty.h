@@ -8,6 +8,8 @@
 #include <strings.h>
 #include <sys/types.h>
 #include <ctype.h>
+#include <stddef.h>
+
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
