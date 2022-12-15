@@ -1,7 +1,6 @@
 #ifndef _MONTY_H_
 #define _MONTY_H_
 #define  _POSIX_C_SOURCE 200809L
-#define EXIT_FAILURE 1
 
 #include <stdio.h>
 #include <stdlib.h>
