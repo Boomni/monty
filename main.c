@@ -12,7 +12,6 @@ int main(int argc, char *argv[])
 {
 	FILE *fp = fopen(argv[1], "r");
 	stack_t *stack = NULL;
-	char *line = NULL;
 	instruction_t instructions[] = {
 		{"push", &push},
 		{"pall", &pall},
@@ -32,9 +31,7 @@ int main(int argc, char *argv[])
 	}
 
 	parser(fp, instructions, stack);
-	free(line);
-	free_stack(stack);
-	fclose(fp);
+	
 	return (0);
 }
 /**
@@ -75,14 +72,14 @@ void parser(FILE *fp, instruction_t instructions[], stack_t *stack)
 	while (getline(&line, &n, fp) != -1)
 	{
 		line_number++;
-		opcode = strtok(line, " \t\n");
+		opcode = strtok(line, " \n\t");
 		if (opcode == NULL || opcode[0] == '#')
 		{
 			continue;
 		}
 		while (instructions[i].opcode != NULL)
 		{
-			if (strcmp(instructions[i].opcode, opcode) == 0)
+			if (strcasecmp(instructions[i].opcode, opcode) == 0)
 			{
 				instructions[i].f(&stack, line_number);
 				break;
@@ -95,4 +92,7 @@ void parser(FILE *fp, instruction_t instructions[], stack_t *stack)
 			exit(EXIT_FAILURE);
 		}
 	}
+	free(line);
+	free_stack(stack);
+	fclose(fp);
 }
