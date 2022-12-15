@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
 		{"pall", &pall},
 		{"pint", &pint},
 		{"pop", &pop},
+		{"swap", &swap},
 		{NULL, NULL}
 	};
 	int line_number = 1;
