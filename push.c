@@ -4,7 +4,7 @@
  * push - pushes an element to the stack.
  *
  * @stack: stack
- * @line_number: line number
+ * @line_number: line number in file
  *
  * Return: void
  */
@@ -15,7 +15,7 @@ void push(stack_t **stack, unsigned int line_number)
 	char *str;
 
 	str = strtok(NULL, " \n\t");
-	if (stack == NULL || !isdigit(str))
+	if (stack == NULL )
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
