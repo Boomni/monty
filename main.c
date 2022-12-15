@@ -67,34 +67,37 @@ void free_stack(stack_t *stack)
  *
  * Return: void
  */
-void parser(FILE *fp, instruction_t arg[], stack_t **stack, int line_number)
+void parser(FILE *fp, instruction_t instructions[], stack_t **stack, int line_number)
 {
 	char *line = NULL;
 	size_t n = 0;
 	char *opcode;
 	int i = 0;
+	char *original_line;
 
 	while (getline(&line, &n, fp) != -1)
 	{
-		char *original_line = strdup(line);
+		original_line = strdup(line);
 		opcode = strtok(original_line, " \n\t");
 		if (opcode == NULL || opcode[0] == '#')
 		{
 			free(original_line);
 			continue;
 		}
-		while (arg[i].opcode != NULL)
+		while (instructions[i].opcode != NULL)
 		{
-			if (strcasecmp(arg[i].opcode, opcode) == 0)
+			if (strcasecmp(instructions[i].opcode, opcode) == 0)
 			{
-				arg[i].f(stack, line_number);
+				instructions[i].f(stack, line_number);
 				break;
 			}
 			i++;
 		}
-		if (arg[i].opcode == NULL)
+		if (instructions[i].opcode == NULL)
 		{
 			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
+			free_stack(*stack);
+			fclose(fp);
 			exit(EXIT_FAILURE);
 		}
 		line_number++;
