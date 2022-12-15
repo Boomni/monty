@@ -20,6 +20,10 @@ int main(int argc, char *argv[])
 		{"swap", &swap},
 		{"add", &add},
 		{"nop", &nop},
+		{"sub", &sub},
+		{"div", &division},
+		{"mul", &mul},
+		{"mod", &mod},
 		{NULL, NULL}
 	};
 	int line_number = 1;
