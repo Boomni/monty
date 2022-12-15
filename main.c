@@ -42,14 +42,14 @@ int main(int argc, char *argv[])
  *
  * Return: void
  */
-void free_stack(stack_t *stack)
+void free_stack(stack_t **stack)
 {
 	stack_t *tmp;
 
 	while (stack != NULL)
 	{
-		tmp = stack;
-		stack = stack->next;
+		tmp = (*stack);
+		(*stack) = (*stack)->next;
 		free(tmp);
 	}
 }
@@ -94,6 +94,6 @@ void parser(FILE *fp, instruction_t instructions[], stack_t **stack, int line_nu
 		line_number++;
 	}
 	free(line);
-	free_stack(*stack);
+	free_stack(stack);
 	fclose(fp);
 }
