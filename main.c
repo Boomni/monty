@@ -10,7 +10,7 @@
  */
 int main(int argc, char *argv[])
 {
-	FILE *fp = fopen(argv[1], "r");
+	FILE *fp;
 	stack_t *stack = NULL;
 	instruction_t instructions[] = {
 		{"push", &push},
@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
+	fp = fopen(argv[1], "r");
 	if (fp == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
@@ -65,35 +66,38 @@ void free_stack(stack_t *stack)
  */
 void parser(FILE *fp, instruction_t instructions[], stack_t **stack, int line_number)
 {
-	char *line = NULL;
-	size_t n = 0;
-	char *opcode;
-	int i = 0;
+        char *line = NULL;
+        size_t n = 0;
+        char *opcode;
+        int i = 0;
 
-	while (getline(&line, &n, fp) != -1)
-	{
-		opcode = strtok(line, " \n\t");
-		if (opcode == NULL || opcode[0] == '#')
-		{
-			continue;
-		}
-		while (instructions[i].opcode != NULL)
-		{
-			if (strcasecmp(instructions[i].opcode, opcode) == 0)
-			{
-				instructions[i].f(stack, line_number);
-				break;
-			}
-			i++;
-		}
-		if (instructions[i].opcode == NULL)
-		{
-			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
-			exit(EXIT_FAILURE);
-		}
-		line_number++;
-	}
-	free(line);
-	free_stack(*stack);
-	fclose(fp);
+        while (getline(&line, &n, fp) != -1)
+        {
+                char *original_line = strdup(line);
+                opcode = strtok(original_line, " \n\t");
+                if (opcode == NULL || opcode[0] == '#')
+                {
+                        free(original_line);
+                        continue;
+                }
+                while (instructions[i].opcode != NULL)
+                {
+                        if (strcasecmp(instructions[i].opcode, opcode) == 0)
+                        {
+                                instructions[i].f(stack, line_number);
+                                break;
+                        }
+                        i++;
+                }
+                if (instructions[i].opcode == NULL)
+                {
+                        fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
+                        exit(EXIT_FAILURE);
+                }
+                line_number++;
+                free(original_line);
+        }
+        free(line);
+        free_stack(*stack);
+        fclose(fp);
 }
