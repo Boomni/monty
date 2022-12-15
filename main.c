@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
 		{"pop", &pop},
 		{NULL, NULL}
 	};
+	int line_number = 1;
 
 	if (argc != 2)
 	{
@@ -31,7 +32,7 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	parser(fp, instructions, &stack);
+	parser(fp, instructions, &stack, line_number);
 	return (0);
 }
 /**
@@ -58,20 +59,19 @@ void free_stack(stack_t *stack)
  * @fp: file passed
  * @instructions: opcode passed
  * @stack: stack
+ * @line_number: line number in the file
  *
  * Return: void
  */
-void parser(FILE *fp, instruction_t instructions[], stack_t **stack)
+void parser(FILE *fp, instruction_t instructions[], stack_t **stack, int line_number)
 {
 	char *line = NULL;
 	size_t n = 0;
 	char *opcode;
 	int i = 0;
-	unsigned int line_number = 0;
 
 	while (getline(&line, &n, fp) != -1)
 	{
-		line_number++;
 		opcode = strtok(line, " \n\t");
 		if (opcode == NULL || opcode[0] == '#')
 		{
@@ -91,6 +91,7 @@ void parser(FILE *fp, instruction_t instructions[], stack_t **stack)
 			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
 			exit(EXIT_FAILURE);
 		}
+		line_number++;
 	}
 	free(line);
 	free_stack(*stack);
