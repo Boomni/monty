@@ -22,11 +22,6 @@ void push(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	value = atoi(str);
-	if (value == 0)
-	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
-	}
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
 	{
