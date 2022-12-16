@@ -20,7 +20,7 @@ void mul(stack_t **stack, unsigned int line_number)
 	}
 
 	result = (*stack)->n * (*stack)->next->n;
-	(*stack)->next->n = result;
+	(*stack)->prev->n = result;
 	temp = (*stack);
 	(*stack) = (*stack)->prev;
 	free(temp);
