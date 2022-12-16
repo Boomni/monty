@@ -10,27 +10,22 @@
  */
 void rotr(stack_t **stack, unsigned int line_number)
 {
-	stack_t *curr;
+	stack_t *copy;
+
+	copy = *head;
 	(void) line_number;
 
-	if (stack == NULL || *stack == NULL)
+	if (*head == NULL || (*head)->next == NULL)
 	{
-		printf("Usage: rotr\n");
 		return;
 	}
-
-	curr = *stack;
-	while (curr->next != NULL)
+	while (copy->next)
 	{
-		curr = curr->next;
+		copy = copy->next;
 	}
-
-	if (curr->prev != NULL)
-	{
-		curr->prev->next = NULL;
-		curr->prev = NULL;
-		curr->next = *stack;
-		(*stack)->prev = curr;
-		*stack = curr;
-	}
+	copy->next = *head;
+	copy->prev->next = NULL;
+	copy->prev = NULL;
+	(*head)->prev = copy;
+	(*head) = copy;
 }
