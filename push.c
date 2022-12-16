@@ -16,13 +16,7 @@ void push(stack_t **stack, unsigned int line_number)
 
 	str = strtok(NULL, " \n\t");
 	/* Check if the argument is NULL */
-	if (str == NULL)
-	{
-		fprintf(stderr, "L%u usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-	/* Check if the argument is a valid integer */
-	if (!is_integer(str))
+	if (str == NULL || !is_integer(str))
 	{
 		fprintf(stderr, "L%u usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
@@ -70,4 +64,3 @@ int is_integer(char *str)
 	}
 	return (1);
 }
-
