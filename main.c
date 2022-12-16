@@ -91,7 +91,7 @@ void parser(FILE *fp, instruction_t arg[], stack_t **stack, int line_number)
 			continue;
 		}
 		i = 0;
-		while (arg[i].opcode != NULL)
+		while (arg[i].opcode && opcode)
 		{
 			if (strcasecmp(arg[i].opcode, opcode) == 0)
 			{
