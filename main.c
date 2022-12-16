@@ -24,6 +24,12 @@ int main(int argc, char **argv)
 		{"div", &division},
 		{"mul", &mul},
 		{"mod", &mod},
+		{"pchar", &pchar},
+		{"pstr", &pstr},
+		{"rotl", &rotl},
+		{"rotr", &rotr},
+		{"stack", &stack},
+		{"queue", &queue},
 		{NULL, NULL}
 	};
 	int line_number = 1;
