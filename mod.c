@@ -11,24 +11,20 @@
  */
 void mod(stack_t **stack, unsigned int line_number)
 {
-	int top;
-	int second_top;
-	stack_t *temp;
+	int result;
 
-	if (*stack == NULL || (*stack)->next == NULL)
+	if (!stack || !*stack || !((*stack)->next))
 	{
-		printf("L%u: can't mod, stack too short\n", line_number);
+		fprintf(stderr, "L%u: can't mod, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	top = (*stack)->n;
-	second_top = (*stack)->next->n;
-	if (top == 0)
+	if (((*stack)->n) == 0)
 	{
-		printf("L%u: division by zero\n", line_number);
+		fprintf(stderr, "L%u: division by zero\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	(*stack)->next->n = second_top % top;
-	temp = *stack;
-	*stack = (*stack)->next;
-	free(temp);
+
+	result = ((*stack)->next->n) % ((*stack)->n);
+	pop(stack, line_number);/*For top node*/
+	(*stack)->n = result;
 }
