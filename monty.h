@@ -1,6 +1,8 @@
 #ifndef _MONTY_H_
 #define _MONTY_H_
 #define  _POSIX_C_SOURCE 200809L
+#define STACK_FORMAT 0
+#define QUEUE_FORMAT 1
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -44,7 +46,7 @@ typedef struct instruction_s
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void free_stack(stack_t *stack);
-void parser(FILE *fp, instruction_t arg[], stack_t **stack, int line_number);
+void parser(FILE *fp, instruction_t arg[], stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
@@ -60,5 +62,6 @@ void rotl(stack_t **stack, unsigned int line_number);
 void rotr(stack_t **stack, unsigned int line_number);
 int is_ascii(int c);
 int is_digit(char *string);
+void switch_data_format(stack_t **stack);
 
 #endif /* _MONTY_H_ */

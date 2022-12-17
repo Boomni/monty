@@ -77,16 +77,20 @@ void free_stack(stack_t *stack)
  *
  * Return: void
  */
-void parser(FILE *fp, instruction_t arg[], stack_t **stack, int line_number)
+void parser(FILE *fp, instruction_t arg[], stack_t **stack, unsigned int line_number)
 {
 	char *line = NULL;
 	size_t n = 0;
-	char *opcode;
-	int i = 0;
-	char *original_line;
+	int read;
+	int data_format = STACK_FORMAT;
 
-	while (getline(&line, &n, fp) != -1)
+	while ((read = getline(&line, &n, fp)) != -1)
 	{
+		char *opcode;
+		int i = 0;
+		char *original_line;
+
+		line_number++;
 		original_line = strdup(line);
 		opcode = strtok(original_line, " \n\t");
 		if (opcode == NULL || opcode[0] == '#')
@@ -94,27 +98,34 @@ void parser(FILE *fp, instruction_t arg[], stack_t **stack, int line_number)
 			free(original_line);
 			continue;
 		}
-		i = 0;
-		while (arg[i].opcode && opcode)
+		if (strcmp(opcode, "stack") == 0)
+			data_format = STACK_FORMAT;
+		else if (strcmp(opcode, "queue") == 0)
+			data_format = QUEUE_FORMAT;
+		else
 		{
-			if (strcasecmp(arg[i].opcode, opcode) == 0)
+			i = 0;
+			for (i = 0; arg[i].opcode != NULL; i++)
 			{
-				arg[i].f(stack, line_number);
-				break;
+				if (strcmp(arg[i].opcode, opcode) == 0)
+				{
+					if (data_format == QUEUE_FORMAT)
+						switch_data_format(stack);
+					arg[i].f(stack, line_number);
+					break;
+				}
 			}
-			i++;
+			if (arg[i].opcode == NULL)
+			{
+				fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+				free_stack(*stack);
+				fclose(fp);
+				exit(EXIT_FAILURE);
+			}
+			free(original_line);
 		}
-		if (arg[i].opcode == NULL)
-		{
-			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
-			free_stack(*stack);
-			fclose(fp);
-			exit(EXIT_FAILURE);
-		}
-		line_number++;
-		free(original_line);
+		free(line);
+		free_stack(*stack);
+		fclose(fp);
 	}
-	free(line);
-	free_stack(*stack);
-	fclose(fp);
 }
