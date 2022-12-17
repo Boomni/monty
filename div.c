@@ -10,21 +10,22 @@
  */
 void division(stack_t **stack, unsigned int line_number)
 {
+	int divisor;
 	stack_t *temp;
-	int result;
 
-	if (!stack || !(*stack) || !(*stack)->next)
+	if (!*stack || !(*stack)->next)
 	{
 		printf("L%u: can't div, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-
+	divisor = (*stack)->n;
+	if (divisor == 0)
+	{
+		printf("L%u: division by zero\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 	temp = *stack;
-
-	result = temp->next->n / temp->n;
-	temp->next->n = result;
-
-	*stack = temp->next;
-
+	*stack = (*stack)->next;
 	free(temp);
+	(*stack)->n /= divisor;
 }
