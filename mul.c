@@ -11,24 +11,14 @@
 void mul(stack_t **stack, unsigned int line_number)
 {
 	int result;
-	int count;
-	stack_t *temp;
 
-	temp = *stack;
-	while (temp)
+	if (!stack || !*stack || !((*stack)->next))
 	{
-		temp = temp->next;
-		count++;
-	}
-	if (count < 2)
-	{
-		printf("L%u: can't mul, stack too short\n", line_number);
+		fprintf(stderr, "L%u: can't mul, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	temp = *stack;
-	result = temp->n * temp->next->n;
-	temp->next->n = result;
-	(*stack) = temp->next;
-	free(temp);
+	result = ((*stack)->next->n) * ((*stack)->n);
+	pop(stack, line_number);/*For top node*/
+	(*stack)->n = result;
 }
