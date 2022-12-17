@@ -2,6 +2,11 @@
 #define _MONTY_H_
 #define  _POSIX_C_SOURCE 200809L
 
+#define STACK_MODE 1
+#define QUEUE_MODE 2
+
+extern int stack_mode;
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -60,5 +65,7 @@ void rotl(stack_t **stack, unsigned int line_number);
 void rotr(stack_t **stack, unsigned int line_number);
 int is_ascii(int c);
 int is_digit(char *string);
+void _stack(stack_t **stack, unsigned int line_number);
+void _queue(stack_t **stack, unsigned int line_number);
 
 #endif /* _MONTY_H_ */

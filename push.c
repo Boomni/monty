@@ -9,7 +9,7 @@
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-	stack_t *node;
+	stack_t *node, *temp;
 	char *num;
 
 	num = strtok(NULL, " \n\t");
@@ -19,21 +19,46 @@ void push(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	node = malloc(sizeof(stack_t));
-	if (node == NULL)
+	if (stack_mode == STACK_MODE)
 	{
-		printf("Error: malloc failed\n");
-		exit(EXIT_FAILURE);
+		node = malloc(sizeof(stack_t));
+		if (node == NULL)
+		{
+			printf("Error: malloc failed\n");
+			exit(EXIT_FAILURE);
+		}
+		node->n = atoi(num);
+		node->prev = NULL;
+		node->next = *stack;
+		if (*stack != NULL)
+			(*stack)->prev = node;
+		*stack = node;
 	}
-
-	node->n = atoi(num);
-	node->prev = NULL;
-	node->next = *stack;
-
-	if (*stack != NULL)
-		(*stack)->prev = node;
-
-	*stack = node;
+	else
+	{
+		node = malloc(sizeof(stack_t));
+		if (node == NULL)
+		{
+			printf("Error: malloc failed\n");
+			exit(EXIT_FAILURE);
+		}
+		node->n = atoi(num);
+		node->prev = NULL;
+		node->next = NULL;
+		if (*stack == NULL)
+		{
+			node->prev = NULL;
+			*stack = node;
+		}
+		else
+		{
+			temp = *stack;
+			while (temp->next)
+				temp = temp->next;
+			temp->next = node;
+			node->prev = temp;
+		}
+	}
 }
 /**
  * is_digit - checks if a string is a digit

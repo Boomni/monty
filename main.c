@@ -28,6 +28,8 @@ int main(int argc, char **argv)
 		{"pstr", &pstr},
 		{"rotl", &rotl},
 		{"rotr", &rotr},
+		{"stack", &_stack},
+		{"queue", &_queue},
 		{NULL, NULL}
 	};
 	int line_number = 1;
