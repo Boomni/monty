@@ -12,10 +12,10 @@ void rotr(stack_t **stack, unsigned int line_number)
 {
 	stack_t *copy;
 
-	copy = *head;
+	copy = *stack;
 	(void) line_number;
 
-	if (*head == NULL || (*head)->next == NULL)
+	if (copy == NULL || copy->next == NULL)
 	{
 		return;
 	}
@@ -23,9 +23,10 @@ void rotr(stack_t **stack, unsigned int line_number)
 	{
 		copy = copy->next;
 	}
-	copy->next = *head;
+	copy->next = *stack
+		;
 	copy->prev->next = NULL;
 	copy->prev = NULL;
-	(*head)->prev = copy;
-	(*head) = copy;
+	(*stack)->prev = copy;
+	(*stack) = copy;
 }
