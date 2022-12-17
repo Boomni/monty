@@ -94,6 +94,9 @@ void parser(FILE *fp, instruction_t arg[], stack_t **stack, int line_number)
 			free(original_line);
 			continue;
 		}
+		opcode = strtok(opcode, " ");
+		opcode = strtok(opcode, "\t");
+
 		i = 0;
 		while (arg[i].opcode && opcode)
 		{
