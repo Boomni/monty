@@ -60,5 +60,6 @@ void rotl(stack_t **stack, unsigned int line_number);
 void rotr(stack_t **stack, unsigned int line_number);
 int is_ascii(int c);
 int is_digit(char *string);
+char *trim_spaces(char *str);
 
 #endif /* _MONTY_H_ */

@@ -94,9 +94,7 @@ void parser(FILE *fp, instruction_t arg[], stack_t **stack, int line_number)
 			free(original_line);
 			continue;
 		}
-		opcode = strtok(opcode, " ");
-		opcode = strtok(opcode, "\t");
-
+		opcode = trim_spaces(opcode);
 		i = 0;
 		while (arg[i].opcode && opcode)
 		{
@@ -121,3 +119,22 @@ void parser(FILE *fp, instruction_t arg[], stack_t **stack, int line_number)
 	free_stack(*stack);
 	fclose(fp);
 }
+char *trim_spaces(char *str)
+{
+	char *end;
+
+	/* Trim leading spaces */
+	while (isspace(*str))
+		str++;
+
+	/* Trim trailing spaces */
+	end = str + strlen(str) - 1;
+	while (end > str && isspace(*end))
+		end--;
+
+	/* Write new null terminator */
+	*(end + 1) = '\0';
+
+	return (str);
+}
+
