@@ -104,11 +104,6 @@ void parser(FILE *fp, instruction_t arg[], stack_t **stack, int line_number)
 			}
 			i++;
 		}
-		if (strlen(opcode) != 0 && opcode[0] != '#')
-		{
-			printf("L%u: unknown instruction %s\n", line_number, opcode);
-			exit(EXIT_FAILURE);
-		}
 		if (arg[i].opcode == NULL)
 		{
 			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
