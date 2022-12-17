@@ -13,7 +13,7 @@ void push(stack_t **stack, unsigned int line_number)
 	char *num;
 
 	num = strtok(NULL, " \n\t");
-	if (num == NULL || (is_digit(num)) == 0)
+	if (num == NULL || !is_digit(num))
 	{
 		printf("L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
