@@ -1,24 +1,21 @@
 #include "monty.h"
 
 /**
- * pall - opcode pall prints all the values starting from the top of the stack.
- *
- * @stack: stack given
- * @line_number: line number in test file
+ * pall - prints all values from the stack
+ * @stack: double pointer to the head of the stack
+ * @line_number: the number of a line of the file
  *
  * Return: void
  */
 void pall(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current;
+	stack_t *temp = *stack;
+
 	(void) line_number;
 
-	current = *stack;
-	if (current == NULL)
-		return;
-	while (current != NULL)
+	while (temp)
 	{
-		printf("%d\n", current->n);
-		current = current->next;
+		printf("%d\n", temp->n);
+		temp = temp->next;
 	}
 }
