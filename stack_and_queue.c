@@ -1,6 +1,7 @@
 #include "monty.h"
 
 int stack_mode = STACK_MODE;
+
 /**
  * _stack - changes direction of the linked list, so it becomes a stack
  *	(i.e., elements are added and removed from the top of the stack)
@@ -21,7 +22,7 @@ void _stack(stack_t **stack, unsigned int line_number)
  * _queue - change the way elements are added and removed from the list
  *
  * @stack: stack
- * @line_number: line_number in file
+ * @line_number: line number in file
  *
  * Return: void
  */
