@@ -114,7 +114,7 @@ When there is no errors, `monty` returns `0`. Otherwise, returns `1`
     <summary>Jonathan Boomni</summary>
     <ul>
     <li><a href="https://www.github.com/Boomni">Github</a></li>
-    <li><a href="https://www.twitter.com/rejoice_oye">Twitter</a></li>
+    <li><a href="https://www.twitter.com/i_am_rejoicey">Twitter</a></li>
     <li><a href="mailto:rejoiceoye1@gmail.com">e-mail</a></li>
     </ul>
 </details>
