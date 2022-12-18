@@ -2,6 +2,7 @@
 
 /**
  * push - pushes new node to the end of the stack
+ *
  * @stack: double pointer to the head of the stack
  * @line_number: the number of a line of the file
  *
@@ -18,16 +19,15 @@ void push(stack_t **stack, unsigned int line_number)
 		printf("L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-
+	node = malloc(sizeof(stack_t));
+	if (node == NULL)
+	{
+		printf("Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
+	node->n = atoi(num);
 	if (stack_mode == STACK_MODE)
 	{
-		node = malloc(sizeof(stack_t));
-		if (node == NULL)
-		{
-			printf("Error: malloc failed\n");
-			exit(EXIT_FAILURE);
-		}
-		node->n = atoi(num);
 		node->prev = NULL;
 		node->next = *stack;
 		if (*stack != NULL)
@@ -36,13 +36,6 @@ void push(stack_t **stack, unsigned int line_number)
 	}
 	else
 	{
-		node = malloc(sizeof(stack_t));
-		if (node == NULL)
-		{
-			printf("Error: malloc failed\n");
-			exit(EXIT_FAILURE);
-		}
-		node->n = atoi(num);
 		node->prev = NULL;
 		node->next = NULL;
 		if (*stack == NULL)
