@@ -67,5 +67,7 @@ int is_ascii(int c);
 int is_digit(char *string);
 void _stack(stack_t **stack, unsigned int line_number);
 void _queue(stack_t **stack, unsigned int line_number);
+void push_stack_mode(stack_t **stack, stack_t *node);
+void push_queue_mode(stack_t **stack, stack_t *node);
 
 #endif /* _MONTY_H_ */
